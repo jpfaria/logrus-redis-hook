@@ -34,7 +34,7 @@ type RedisHook struct {
 func NewHook(config HookConfig) (*RedisHook, error) {
 	pool := newRedisConnectionPool(config.Host, config.Password, config.Port, config.DB)
 
-	if config.Format != "v0" && config.Format != "v1" {
+	if config.Format != "v0" && config.Format != "v1" && config.Format != "b2w" {
 		return nil, fmt.Errorf("unknown message format")
 	}
 	// test if connection with REDIS can be established
