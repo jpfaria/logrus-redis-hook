@@ -141,7 +141,7 @@ func createV1Message(entry *logrus.Entry, appName, hostname string) map[string]i
 
 func createb2wMessage(entry *logrus.Entry, appName, hostname string) map[string]interface{} {
 	m := make(map[string]interface{})
-	m["date"] = entry.Time.UTC().Format("2006/01/02 15:04:05.000")
+	m["date"] = entry.Time.UTC().Format("02/01/2006 15:04:05.000")
 	m["host"] = hostname
 	m["log_message"] = entry.Message
 	m["log_level"] = entry.Level.String()
