@@ -145,7 +145,7 @@ func createb2wMessage(entry *logrus.Entry, appName, hostname string) map[string]
 	m["host"] = hostname
 	m["log_message"] = entry.Message
 	m["log_level"] = entry.Level.String()
-	m["application"] = entry.Data["application"]
+	m["application"] = appName
 	for k, v := range entry.Data {
 		m[k] = v
 	}
