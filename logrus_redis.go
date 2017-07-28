@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-
 	"github.com/Sirupsen/logrus"
 	"github.com/garyburd/redigo/redis"
 )
@@ -67,6 +66,8 @@ func (hook *RedisHook) Fire(entry *logrus.Entry) error {
 		msg = createV0Message(entry, hook.AppName, hook.Hostname)
 	case "v1":
 		msg = createV1Message(entry, hook.AppName, hook.Hostname)
+	case "b2w":
+		msg = createb2wMessage(entry, hook.AppName, hook.Hostname)
 	default:
 		fmt.Println("Invalid LogstashFormat")
 	}
@@ -130,6 +131,21 @@ func createV1Message(entry *logrus.Entry, appName, hostname string) map[string]i
 	m["message"] = entry.Message
 	m["level"] = entry.Level.String()
 	m["application"] = appName
+	for k, v := range entry.Data {
+		m[k] = v
+	}
+
+	// return full message
+	return m
+}
+
+func createb2wMessage(entry *logrus.Entry, appName, hostname string) map[string]interface{} {
+	m := make(map[string]interface{})
+	m["date"] = entry.Time.UTC().Format("2006/01/02 15:04:05.000")
+	m["host"] = hostname
+	m["log_message"] = entry.Message
+	m["log_level"] = entry.Level.String()
+	m["application"] = entry.Data["application"]
 	for k, v := range entry.Data {
 		m[k] = v
 	}
