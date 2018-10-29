@@ -1,5 +1,6 @@
 # Redis Hook for [Logrus](https://github.com/Sirupsen/logrus) <img src="http://i.imgur.com/hTeVwmJ.png" width="40" height="40" alt=":walrus:" class="emoji" title=":walrus:"/>
-[![Build Status](https://travis-ci.org/rogierlommers/logrus-redis-hook.svg?branch=master)](https://travis-ci.org/rogierlommers/logrus-redis-hook)
+
+[![CircleCI](https://circleci.com/gh/rogierlommers/logrus-redis-hook.svg?style=svg)](https://circleci.com/gh/rogierlommers/logrus-redis-hook) [![Coverage Status](https://coveralls.io/repos/github/rogierlommers/logrus-redis-hook/badge.svg?branch=master)](https://coveralls.io/github/rogierlommers/logrus-redis-hook?branch=master) [![Go Report Card](https://goreportcard.com/badge/github.com/rogierlommers/logrus-redis-hook)](https://goreportcard.com/report/github.com/rogierlommers/logrus-redis-hook)
 
 ## Why?
 
@@ -16,23 +17,26 @@ $ go get github.com/rogierlommers/logrus-redis-hook
 ## Usage
 
 ```go
+
 package main
 
 import (
 	"io/ioutil"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/rogierlommers/logrus-redis-hook"
 )
 
 func init() {
 	hookConfig := logredis.HookConfig{
-		Host:   "localhost",
-		Key:    "my_redis_key",
-		Format: "v0",
-		App:    "my_app_name",
-		Port:   6379,
-		DB:     0, // optional
+		Host:     "localhost",
+		Key:      "my_redis_key",
+		Format:   "v0",
+		App:      "my_app_name",
+		Port:     6379,
+		Hostname: "my_app_hostname", // will be sent to field @source_host
+		DB:       0, // optional
+		TTL:      3600,
 	}
 
 	hook, err := logredis.NewHook(hookConfig)
@@ -58,6 +62,7 @@ func main() {
 	logrus.SetOutput(ioutil.Discard)
 	logrus.Info("This will only be sent to Redis")
 }
+
 ```
 
 

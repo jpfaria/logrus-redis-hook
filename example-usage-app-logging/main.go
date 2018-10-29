@@ -3,18 +3,21 @@ package main
 import (
 	"io/ioutil"
 
-	"github.com/sirupsen/logrus"
 	"github.com/rogierlommers/logrus-redis-hook"
+	"github.com/sirupsen/logrus"
 )
 
 func init() {
 	hookConfig := logredis.HookConfig{
-		Host:   "localhost",
-		Key:    "my_redis_key",
-		Format: "v0",
-		App:    "my_app_name",
-		Port:   6379,
-		DB:     0,
+		Host:     "localhost",
+		Key:      "my_redis_key",
+		Format:   "v0",
+		App:      "my_app_name",
+		Hostname: "my_app_hostname",
+		Port:     6379,
+		DB:       0,
+		TTL:      3600,
+		// Password: "your-secret-password",
 	}
 
 	hook, err := logredis.NewHook(hookConfig)
@@ -26,7 +29,8 @@ func init() {
 }
 
 func main() {
-	// when hook is injected succesfully, logs will be send to redis server
+	logrus.SetLevel(logrus.TraceLevel)
+	logrus.Trace("just some trace logging...")
 	logrus.Debug("just some debug logging...")
 	logrus.Info("just some info logging...")
 	logrus.Warn("just some warn logging...")

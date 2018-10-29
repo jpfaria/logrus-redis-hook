@@ -14,11 +14,12 @@ func TestNewHookFunc(t *testing.T) {
 		Password: "password",
 		Port:     1,
 		DB:       1,
+		TTL:      3600,
 	}
 
 	hook, err := NewHook(config)
 	if hook != nil {
-		t.Fatalf("TestNewHookFunc, expected no hook, got hook: %s", hook)
+		t.Fatalf("TestNewHookFunc, expected no hook, got hook: %v", hook)
 	}
 
 	if err == nil {
