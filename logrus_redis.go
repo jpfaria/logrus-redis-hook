@@ -38,8 +38,7 @@ type RedisHook struct {
 func NewHook(config HookConfig) (*RedisHook, error) {
 	pool := newRedisConnectionPool(config.Host, config.Password, config.Port, config.DB)
 
-	if config.Format != "v0" && config.Format != "v1" && config.Format != "b2w" {
-	if config.Format != "v0" && config.Format != "v1" && config.Format != "access" {
+	if config.Format != "v0" && config.Format != "v1" && config.Format != "b2w" && config.Format != "access" {
 		return nil, fmt.Errorf("unknown message format")
 	}
 
@@ -111,7 +110,7 @@ func (hook *RedisHook) Fire(entry *logrus.Entry) error {
 // Levels returns the available logging levels.
 func (hook *RedisHook) Levels() []logrus.Level {
 	return []logrus.Level{
-		logrus.TraceLevel,
+		logrus.InfoLevel,
 		logrus.DebugLevel,
 		logrus.InfoLevel,
 		logrus.WarnLevel,

@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.8
-    working_directory: /go/src/github.com/rogierlommers/logrus-redis-hook
+    working_directory: /go/src/github.com/jpfaria/logrus-redis-hook
     steps:
       - checkout
 

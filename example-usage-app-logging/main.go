@@ -3,7 +3,7 @@ package main
 import (
 	"io/ioutil"
 
-	"github.com/rogierlommers/logrus-redis-hook"
+	"github.com/jpfaria/logrus-redis-hook"
 	"github.com/sirupsen/logrus"
 )
 
@@ -29,8 +29,8 @@ func init() {
 }
 
 func main() {
-	logrus.SetLevel(logrus.TraceLevel)
-	logrus.Trace("just some trace logging...")
+	logrus.SetLevel(logrus.DebugLevel)
+	logrus.Debug("just some trace logging...")
 	logrus.Debug("just some debug logging...")
 	logrus.Info("just some info logging...")
 	logrus.Warn("just some warn logging...")

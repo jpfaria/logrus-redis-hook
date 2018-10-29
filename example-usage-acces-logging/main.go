@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/rogierlommers/logrus-redis-hook"
+	"github.com/jpfaria/logrus-redis-hook"
 	"github.com/sirupsen/logrus"
 )
 
